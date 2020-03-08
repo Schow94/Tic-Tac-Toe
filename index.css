@@ -1,0 +1,107 @@
+body,
+html {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  top: 0;
+  left: 0;
+}
+.title {
+  text-align: center;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.rows-container {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 70%;
+  margin-left: 25%;
+}
+
+.row {
+  height: 300px;
+  display: flex;
+  flex-direction: row;
+}
+
+.row-1 {
+  /* background-color: blue; */
+}
+.row-2 {
+  /* background-color: red; */
+}
+
+.row-3 {
+  /* background-color: green; */
+}
+
+.cell {
+  width: 33.33%;
+  text-align: center;
+  font-size: 5em;
+}
+
+.cell-0-0 {
+  border-right: 10px solid black;
+}
+.cell-0-1 {
+  border-right: 10px solid black;
+}
+.cell-0-2 {
+}
+.cell-1-0 {
+  border-top: 10px solid black;
+  border-right: 10px solid black;
+  border-bottom: 10px solid black;
+}
+.cell-1-1 {
+  border-top: 10px solid black;
+  border-right: 10px solid black;
+  border-bottom: 10px solid black;
+}
+.cell-1-2 {
+  border-top: 10px solid black;
+  border-bottom: 10px solid black;
+}
+.cell-2-0 {
+  border-right: 10px solid black;
+}
+.cell-2-1 {
+  border-right: 10px solid black;
+}
+.cell-2-2 {
+}
+
+.cell-text {
+  margin-top: 40%;
+}
+
+.playerOne {
+  background-color: red;
+}
+
+.playerTwo {
+  background-color: blue;
+}
+
+.message {
+  font-size: 3em;
+  text-align: center;
+}
+
+.one-turn {
+  color: red;
+}
+
+.two-turn {
+  color: blue;
+}
+
+.winner {
+  color: green;
+}
