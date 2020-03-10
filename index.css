@@ -49,23 +49,34 @@ header {
   width: 100%;
   display: flex;
   flex-direction: row;
-  /* background-color: blue; */
 }
 
 .row-1 {
-  /* background-color: blue; */
 }
 .row-2 {
-  /* background-color: red; */
 }
 
 .row-3 {
-  /* background-color: green; */
 }
 
 .cell {
   width: 33.33%;
   text-align: center;
+}
+
+.cell:hover {
+  background-color: grey;
+  opacity: 50%;
+  border-radius: 20px;
+}
+
+.cell-text {
+  padding: 0;
+  margin: 0;
+  margin-top: 10%;
+  color: white;
+  font-size: 5em;
+  font-weight: 800;
 }
 
 .cell-0-0 {
@@ -111,20 +122,12 @@ header {
   border-left: 2px solid white;
 }
 
-.cell-text {
-  padding: 0;
-  margin: 0;
-  margin-top: 10%;
-  color: white;
-  font-size: 5em;
-}
-
 .playerOne {
-  /* background-color: red; */
+  color: red;
 }
 
 .playerTwo {
-  /* background-color: blue; */
+  color: blue;
 }
 
 .one-turn {
