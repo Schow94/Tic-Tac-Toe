@@ -152,6 +152,8 @@ $(document).ready(function() {
   $gameOver = $('.game-over');
   $btnContainer = $('.btn-container');
   $refreshBtn = $('.new-game-btn');
+  $winningText = $('.winning-text');
+
   // Keep track of score in arr sep from DOM/HTML
   var boardArr = [
     [null, null, null],
@@ -217,6 +219,9 @@ $(document).ready(function() {
       if (winner) {
         $('article').addClass('click-disabled');
         $($modal).css('z-index', '1');
+        $gameOver.after(
+          '<h2 class="winning-text playerOne">Winner: Player 1</h2>'
+        );
         $($gameOver).css('z-index', '4');
         $($btnContainer).css('z-index', '3');
       }
@@ -249,9 +254,11 @@ $(document).ready(function() {
         //Disables click if someone wins
         $('article').addClass('click-disabled');
         $($modal).css('z-index', '1');
+        $gameOver.after(
+          '<h2 class="winning-text playerTwo">Winner: Player 2</h2>'
+        );
         $($gameOver).css('z-index', '4');
         $($btnContainer).css('z-index', '3');
-        console.log($cell);
       }
 
       //Change msg so player knows when to go

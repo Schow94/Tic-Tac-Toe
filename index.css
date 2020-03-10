@@ -67,7 +67,7 @@ header {
 }
 
 .new-game-btn {
-  margin-top: 20%;
+  margin-top: 35%;
   font-size: 1.5em;
   margin-left: 45%;
   z-index: -2;
@@ -95,6 +95,12 @@ header {
 
 .message {
   font-size: 3em;
+}
+
+.winning-text {
+  text-align: center;
+  font-size: 3em;
+  margin-top: 0;
 }
 
 .rows-container {
