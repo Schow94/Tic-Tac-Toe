@@ -17,10 +17,11 @@ $(document).ready(function() {
   var turn = 'X';
   var winner;
 
-  //Better to have 1 fxn that checks for all winning scenarios
+  //1 fxn that checks for all winning scenarios
   const checkForWin = data => {
     //Checks if you can win horizontally
     //Accounts for 3/8 possible solutions
+
     const checkHorizontally = arr => {
       let arrOne = arr[0];
       let arrTwo = arr[1];
@@ -105,7 +106,6 @@ $(document).ready(function() {
 
         if (temp[0] === 'X' && temp[1] === temp[0] && temp[2] === temp[0]) {
           winner = 'playerOne';
-          console.log(winner);
         } else if (
           temp[0] === 'O' &&
           temp[1] === temp[0] &&
@@ -125,7 +125,6 @@ $(document).ready(function() {
         //Check temp arr to see if all values are same
         if (temp[0] === 'X' && temp[1] === temp[0] && temp[2] === temp[0]) {
           winner = 'playerOne';
-          console.log(winner);
         } else if (
           temp[0] === 'O' &&
           temp[1] === temp[0] &&
@@ -149,13 +148,21 @@ $(document).ready(function() {
   $rowsContainer = $('.rows-container');
   $cell = $('.cell');
   $message = $('.message');
-
-  // Keep track of score separately in an array
+  $modal = $('.modal');
+  $gameOver = $('.game-over');
+  $btnContainer = $('.btn-container');
+  $refreshBtn = $('.new-game-btn');
+  // Keep track of score in arr sep from DOM/HTML
   var boardArr = [
     [null, null, null],
     [null, null, null],
     [null, null, null]
   ];
+
+  //Start New Game - Refresh Page
+  $refreshBtn.on('click', e => {
+    window.location.reload();
+  });
 
   $rowsContainer.on('click', $cell, e => {
     moves++;
@@ -170,9 +177,25 @@ $(document).ready(function() {
       .filter(x => !x.includes('cell'))
       .map(x => parseInt(x));
 
-    console.log(numArr);
+    // console.log(numArr);
     var coordOne = numArr[0];
     var coordTwo = numArr[1];
+
+    //Disable clicking after user clicks on a square
+
+    $(e.target).addClass('click-disabled');
+
+    $('.click-disabled').on('click', e => {
+      var clickedOn = e.target.className.split(' ');
+      if (clickedOn.includes('click-disabled')) {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log('Trying to disable clicking');
+      }
+    });
+
+    //Need to prevent clicking on children too
+    console.log(e.target);
 
     if (turn === 'X') {
       var clickedCellText = $(e.target);
@@ -191,6 +214,12 @@ $(document).ready(function() {
       // checkHorizontally(boardArr);
       // checkVertically(boardArr);
       checkForWin(boardArr);
+      if (winner) {
+        $('article').addClass('click-disabled');
+        $($modal).css('z-index', '1');
+        $($gameOver).css('z-index', '4');
+        $($btnContainer).css('z-index', '3');
+      }
 
       //Change message so player knows when to go
       $message.text("Player Two's Turn");
@@ -215,6 +244,15 @@ $(document).ready(function() {
       // checkHorizontally(boardArr);
       // checkVertically(boardArr);
       checkForWin(boardArr);
+      if (winner) {
+        console.log('winner: ', winner);
+        //Disables click if someone wins
+        $('article').addClass('click-disabled');
+        $($modal).css('z-index', '1');
+        $($gameOver).css('z-index', '4');
+        $($btnContainer).css('z-index', '3');
+        console.log($cell);
+      }
 
       //Change msg so player knows when to go
       $message.text("Player One's Turn");
@@ -223,28 +261,14 @@ $(document).ready(function() {
       turn = 'X';
     }
 
-    if (winner) {
-      $message.text(`We have a winner: ${winner}!!!`);
-      //Remove all classes so it doesn't affect message color
-    }
-
-    // console.log(boardArr);
-
-    //Loop through boardArr & reflect changes to HTML
     //Need to figure out a way to loop
-    // boardArr [[],[],[]]
-    //$cell returns an arr w/ 9 items, not nested like boardArr
-    // for (let i = 0; i < $cell.length; i++) {
-    //   // $($cell[i]).text(`${boardArr[i]}`);
-    //   console.log(boardArr[i], $cell[i]);
-    // }
-
     console.log('moves: ', moves);
     // No Winner
     if (moves === 9 && !winner) {
-      console.log('DRAW');
+      $($modal).css('z-index', '1');
+      $($gameOverBtn).text('DRAW');
+      $($gameOver).css('z-index', '4');
+      $($btnContainer).css('z-index', '3');
     }
-    //Disable clicking once someone wins
-    //Disable clicking on tiles that have been clicked on already
   });
 });

@@ -8,6 +8,15 @@ html {
   background-color: black;
   font-family: 'Raleway', sans-serif;
 }
+.body-container {
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 0;
+  /* opacity: 70%; */
+}
 .title {
   text-align: center;
   margin-top: 0;
@@ -30,10 +39,62 @@ header {
   align-items: center;
 }
 
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: black;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  opacity: 90%;
+}
+.game-over {
+  position: relative;
+  text-align: center;
+  margin-top: 3%;
+  font-size: 6em;
+  letter-spacing: 15px;
+}
+.btn-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -2;
+}
+
+.new-game-btn {
+  margin-top: 20%;
+  font-size: 1.5em;
+  margin-left: 45%;
+  z-index: -2;
+  padding: 0.7em;
+  border-radius: 0.3em;
+  background-color: #ff9514;
+  color: #21211f;
+  border: none;
+  box-shadow: -2px 5px 2px #ed8a11;
+}
+
+.new-game-btn:hover {
+  background-color: #fa8b05;
+  color: black;
+  cursor: pointer;
+}
+.new-game-btn:active {
+  box-shadow: -1px 2px 2px #ed8a11;
+  transform: translateY(2px);
+}
+
+.new-game-btn:focus {
+  outline: none;
+}
+
 .message {
   font-size: 3em;
-  /* text-align: center; */
-  /* margin-top: 1%; */
 }
 
 .rows-container {
@@ -140,4 +201,8 @@ header {
 
 .winner {
   color: green;
+}
+
+.click-disabled {
+  cursor: not-allowed;
 }
