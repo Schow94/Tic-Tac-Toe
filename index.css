@@ -64,12 +64,14 @@ header {
   height: 100%;
   width: 100%;
   z-index: -2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .new-game-btn {
   margin-top: 35%;
   font-size: 1.5em;
-  margin-left: 45%;
   z-index: -2;
   padding: 0.7em;
   border-radius: 0.3em;
@@ -210,7 +212,7 @@ header {
 }
 
 .click-disabled {
-  cursor: not-allowed;
+  /* cursor: not-allowed; */
 }
 
 /* Media Queries */
@@ -285,7 +287,6 @@ header {
   .new-game-btn {
     margin-top: 48%;
     font-size: 1em;
-    margin-left: 34%;
     z-index: -2;
     padding: 0.7em;
     border-radius: 0.3em;
@@ -293,6 +294,7 @@ header {
     color: #21211f;
     border: none;
     box-shadow: -2px 5px 2px #ed8a11;
+    width: 130px;
   }
   .playerOne {
     color: red;
@@ -344,6 +346,7 @@ header {
     flex-direction: column;
     align-items: center;
   }
+
   .message {
     margin-top: 0;
     font-size: 1.5em;
@@ -374,7 +377,6 @@ header {
   .new-game-btn {
     margin-top: 31%;
     font-size: 1em;
-    margin-left: 36%;
     z-index: -2;
     padding: 0.7em;
     border-radius: 0.3em;
@@ -382,6 +384,8 @@ header {
     color: #21211f;
     border: none;
     box-shadow: -2px 5px 2px #ed8a11;
+    width: 150px;
+    height: 55px;
   }
   .playerOne {
     color: red;
@@ -460,7 +464,6 @@ header {
   .new-game-btn {
     margin-top: 28%;
     font-size: 1.1em;
-    margin-left: 39%;
     z-index: -2;
     padding: 0.7em;
     border-radius: 0.3em;
@@ -468,6 +471,8 @@ header {
     color: #21211f;
     border: none;
     box-shadow: -2px 5px 2px #ed8a11;
+    width: 150px;
+    height: 55px;
   }
   .playerOne {
     color: red;
@@ -535,18 +540,18 @@ header {
     position: relative;
     text-align: center;
     margin-top: 3%;
+    margin-bottom: 1%;
     font-size: 4em;
     letter-spacing: 15px;
   }
   .winning-text {
     text-align: center;
-    font-size: 1.5em;
+    font-size: 2em;
     margin-top: 0;
   }
   .new-game-btn {
-    margin-top: 30%;
+    margin-top: 23%;
     font-size: 1.5em;
-    margin-left: 39%;
     z-index: -2;
     padding: 0.7em;
     border-radius: 0.3em;
@@ -554,6 +559,8 @@ header {
     color: #21211f;
     border: none;
     box-shadow: -2px 5px 2px #ed8a11;
+    width: 180px;
+    height: 70px;
   }
   .playerOne {
     color: red;
@@ -604,7 +611,6 @@ header {
   }
   .message {
     font-size: 2.5em;
-    /* margin: 5%; */
   }
   .modal {
     position: absolute;
@@ -630,9 +636,8 @@ header {
     margin-top: 0;
   }
   .new-game-btn {
-    margin-top: 24%;
+    margin-top: 25%;
     font-size: 1.5em;
-    margin-left: 42.5%;
     z-index: -2;
     padding: 0.7em;
     border-radius: 0.3em;
@@ -640,6 +645,8 @@ header {
     color: #21211f;
     border: none;
     box-shadow: -2px 5px 2px #ed8a11;
+    width: 180px;
+    height: 70px;
   }
   .playerOne {
     color: red;
@@ -707,6 +714,7 @@ header {
     position: relative;
     text-align: center;
     margin-top: 3%;
+    margin-bottom: 1%;
     font-size: 6em;
     letter-spacing: 15px;
   }
@@ -716,9 +724,8 @@ header {
     margin-top: 0;
   }
   .new-game-btn {
-    margin-top: 22%;
+    margin-top: 18%;
     font-size: 1.5em;
-    margin-left: 45%;
     z-index: -2;
     padding: 0.7em;
     border-radius: 0.3em;
@@ -726,6 +733,8 @@ header {
     color: #21211f;
     border: none;
     box-shadow: -2px 5px 2px #ed8a11;
+    width: 180px;
+    height: 70px;
   }
   .playerOne {
     color: red;

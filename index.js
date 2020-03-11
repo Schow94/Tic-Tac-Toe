@@ -146,6 +146,7 @@ $(document).ready(function() {
 
   //Selectors
   $rowsContainer = $('.rows-container');
+  $row = $('.row');
   $cell = $('.cell');
   $message = $('.message');
   $modal = $('.modal');
@@ -161,6 +162,13 @@ $(document).ready(function() {
     [null, null, null]
   ];
 
+  //Disabling clicking on rows actually disables clicking on columns too
+  // $row.on('click', e => {
+  //   // e.preventDefault();
+  //   e.stopPropagation();
+  //   console.log('clicked on a row', e.target);
+  // });
+
   //Start New Game - Refresh Page
   $refreshBtn.on('click', e => {
     window.location.reload();
@@ -168,7 +176,6 @@ $(document).ready(function() {
 
   $rowsContainer.on('click', $cell, e => {
     moves++;
-    console.log('turn: ', turn);
     var clickedCell = $(e.target)[0].className;
     //Converts a cell className into an arr to get coordinates
     var classNameArr = clickedCell.split('-').splice('');
@@ -178,8 +185,8 @@ $(document).ready(function() {
     var numArr = classNameArr
       .filter(x => !x.includes('cell'))
       .map(x => parseInt(x));
-
-    // console.log(numArr);
+    console.log('clickedCell: ', clickedCell);
+    console.log('numArr: ', numArr);
     var coordOne = numArr[0];
     var coordTwo = numArr[1];
 
@@ -192,12 +199,11 @@ $(document).ready(function() {
       if (clickedOn.includes('click-disabled')) {
         e.stopPropagation();
         e.preventDefault();
-        console.log('Trying to disable clicking');
       }
     });
 
     //Need to prevent clicking on children too
-    console.log(e.target);
+    // console.log(e.target);
 
     if (turn === 'X') {
       var clickedCellText = $(e.target);
@@ -212,10 +218,10 @@ $(document).ready(function() {
         .addClass('playerOne');
 
       boardArr[coordOne][coordTwo] = 'X';
+
       //Check score to see if someone won
-      // checkHorizontally(boardArr);
-      // checkVertically(boardArr);
       checkForWin(boardArr);
+
       if (winner) {
         $('article').addClass('click-disabled');
         $($modal).css('z-index', '1');
@@ -245,12 +251,12 @@ $(document).ready(function() {
         .addClass('playerTwo');
 
       boardArr[coordOne][coordTwo] = 'O';
+
       //Check score to see if someone won
-      // checkHorizontally(boardArr);
-      // checkVertically(boardArr);
       checkForWin(boardArr);
+
       if (winner) {
-        console.log('winner: ', winner);
+        // console.log('winner: ', winner);
         //Disables click if someone wins
         $('article').addClass('click-disabled');
         $($modal).css('z-index', '1');
@@ -268,12 +274,12 @@ $(document).ready(function() {
       turn = 'X';
     }
 
+    console.log(boardArr);
     //Need to figure out a way to loop
-    console.log('moves: ', moves);
     // No Winner
     if (moves === 9 && !winner) {
       $($modal).css('z-index', '1');
-      $($gameOverBtn).text('DRAW');
+      $($gameOver).text('DRAW');
       $($gameOver).css('z-index', '4');
       $($btnContainer).css('z-index', '3');
     }
