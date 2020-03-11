@@ -162,13 +162,6 @@ $(document).ready(function() {
     [null, null, null]
   ];
 
-  //Disabling clicking on rows actually disables clicking on columns too
-  // $row.on('click', e => {
-  //   // e.preventDefault();
-  //   e.stopPropagation();
-  //   console.log('clicked on a row', e.target);
-  // });
-
   //Start New Game - Refresh Page
   $refreshBtn.on('click', e => {
     window.location.reload();
@@ -185,8 +178,8 @@ $(document).ready(function() {
     var numArr = classNameArr
       .filter(x => !x.includes('cell'))
       .map(x => parseInt(x));
-    console.log('clickedCell: ', clickedCell);
-    console.log('numArr: ', numArr);
+    // console.log('clickedCell: ', clickedCell);
+    // console.log('numArr: ', numArr);
     var coordOne = numArr[0];
     var coordTwo = numArr[1];
 
@@ -274,7 +267,7 @@ $(document).ready(function() {
       turn = 'X';
     }
 
-    console.log(boardArr);
+    // console.log(boardArr);
     //Need to figure out a way to loop
     // No Winner
     if (moves === 9 && !winner) {

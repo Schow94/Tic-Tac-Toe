@@ -135,6 +135,7 @@ header {
 
 .cell:hover {
   background-color: grey;
+  border: none;
   opacity: 50%;
   border-radius: 20px;
 }
