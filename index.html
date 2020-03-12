@@ -16,7 +16,7 @@
 
 <body>
   <script src="index.js"></script>
-  <div class="body-container">
+  <div class="board-container">
     <header>
       <h1 class='title'>Tic Tac Toe</h1>
     </header>
@@ -60,12 +60,34 @@
       </div>
     </article>
   </div>
+
+  <!-- Remove all this when button is clicked -->
+  <div class='body-container'>
+    <header>
+      <h1 class='title'>Tic Tac Toe</h1>
+    </header>
+
+    <article class="form-div">
+      <h3 class="form-title">Choose an opponent:</h3>
+      <form class="form-container">
+        <input type="radio" id="human" name="opponent" value="human" checked>
+        <label for="human">Human</label><br>
+
+        <input type="radio" id="computer" name="opponent" value="computer">
+        <label for="computer">Computer</label><br>
+        <button class="start-btn">Start Game</button>
+      </form>
+    </article>
+  </div>
+
   <div class='modal'>
     <h1 class="game-over">GAME OVER</h1>
   </div>
+
   <div class='btn-container'>
     <button class='new-game-btn'>New Game</button>
   </div>
+
 </body>
 
 </html>

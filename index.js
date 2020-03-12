@@ -144,8 +144,15 @@ $(document).ready(function() {
     checkDiagonally(data);
   };
 
+  var $inputVal;
+  // var $board =
+  //   '<article class="container"><h2 class="one-turn message">Turn: Player One</h2><div class="rows-container"><div class="row row-1 click-disabled"><div class="cell cell-0-0"><p class="cell-text click-disabled"></p></div><div class="cell cell-0-1"><p class="cell-text click-disabled"></p></div><div class="cell cell-0-2"><p class="cell-text click-disabled"></p></div></div><div class="row row-2 click-disabled"><div class="cell cell-1-0"><p class="cell-text click-disabled"></p></div><div class="cell cell-1-1"><p class="cell-text click-disabled"></p></div><div class="cell cell-1-2"><p class="cell-text click-disabled"></p></div></div><div class="row row-3 click-disabled"><div class="cell cell-2-0"><p class="cell-text click-disabled"></p></div><div class="cell cell-2-1"><p class="cell-text click-disabled"></p></div><div class="cell cell-2-2"><p class="cell-text click-disabled"></p></div></div></div></article>';
+
   //Selectors
-  $rowsContainer = $('.rows-container');
+  var $formContainer = $('.form-container');
+  var $rowsContainer = $('.rows-container');
+  var $bodyContainer = $('.body-container');
+  var $boardContainer = $('.board-container');
   $row = $('.row');
   $cell = $('.cell');
   $message = $('.message');
@@ -154,6 +161,31 @@ $(document).ready(function() {
   $btnContainer = $('.btn-container');
   $refreshBtn = $('.new-game-btn');
   $winningText = $('.winning-text');
+  $startBtn = $('.start-btn');
+
+  $startBtn.on('click', e => {
+    e.preventDefault();
+    //Do something if inputVal is computer or human
+    $($boardContainer).css('z-index', '0');
+    $($bodyContainer).css('z-index', '-10');
+
+    //Delete form that user first sees
+    // $bodyContainer.empty();
+
+    //Use JS to create the tic tac toe board I had before
+    // $bodyContainer.append($board);
+  });
+
+  // $input.on('click', e => {
+  //   var $val = $(e.target).val();
+  //   console.log($val);
+  // });
+
+  //Event Handler to listen for input's value to change
+  $formContainer.change(e => {
+    $inputVal = $(e.target).val();
+    console.log('inputVal:', $inputVal);
+  });
 
   // Keep track of score in arr sep from DOM/HTML
   var boardArr = [
@@ -167,6 +199,7 @@ $(document).ready(function() {
     window.location.reload();
   });
 
+  //This code is not even triggering when creating board in JS
   $rowsContainer.on('click', $cell, e => {
     moves++;
     var clickedCell = $(e.target)[0].className;
