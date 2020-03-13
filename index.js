@@ -1,6 +1,57 @@
 $(document).ready(function() {
   console.log('DOM has loaded');
+
+  //Selectors
+  var $formContainer = $('.form-container');
+  var $rowsContainer = $('.rows-container');
+  var $bodyContainer = $('.body-container');
+  var $boardContainer = $('.board-container');
+
+  //Set human as default-style game play
+  var $inputVal = 'human';
+
+  $row = $('.row');
+  $cell = $('.cell');
+  $message = $('.message');
+  $modal = $('.modal');
+  $gameOver = $('.game-over');
+  $btnContainer = $('.btn-container');
+  $refreshBtn = $('.new-game-btn');
+  $winningText = $('.winning-text');
+  $startBtn = $('.start-btn');
+
+  //Event Handler to listen for input's value to change
+  $formContainer.change(e => {
+    $inputVal = $(e.target).val();
+    console.log('inputVal:', $inputVal);
+  });
+
+  var turn = 'X';
+  var winner;
   var moves = 0;
+  var randOne;
+  var randTwo;
+
+  // 1) Human vs. Human mode
+  const whoIsPlaying = () => {
+    //Add human v human specific logic
+    if ($inputVal === 'human') {
+      console.log('PLaying against your friend');
+    }
+    //Add computer logic
+    else if ($inputVal === 'computer') {
+      console.log('PLaying against the computer');
+      if (turn === 'O') {
+        //Computer needs to calculate random # for where to play
+        //Thinking I may need a loop to calculate how many turns are left & when computer
+        //needs to play
+        var outerIdx = Math.floor(Math.random() * 3);
+        var innerIdx = Math.floor(Math.random() * 3);
+        boardArr[outerIdx][innerIdx] = 'O';
+      }
+    }
+  };
+
   //WINNING SCENARIOS
   //Horizontal Winning Scenarios (3)
   var winOne = [['X', 'X', 'X'], [], []];
@@ -14,10 +65,7 @@ $(document).ready(function() {
   var winSeven = [['X', 'X', 'X'], [], []];
   var winEight = [['X', 'X', 'X'], [], []];
 
-  var turn = 'X';
-  var winner;
-
-  //1 fxn that checks for all winning scenarios
+  //1 fxn that checks for all winning scenarios - Doesn't actually assess where you should play
   const checkForWin = data => {
     //Checks if you can win horizontally
     //Accounts for 3/8 possible solutions
@@ -144,47 +192,13 @@ $(document).ready(function() {
     checkDiagonally(data);
   };
 
-  var $inputVal;
-  // var $board =
-  //   '<article class="container"><h2 class="one-turn message">Turn: Player One</h2><div class="rows-container"><div class="row row-1 click-disabled"><div class="cell cell-0-0"><p class="cell-text click-disabled"></p></div><div class="cell cell-0-1"><p class="cell-text click-disabled"></p></div><div class="cell cell-0-2"><p class="cell-text click-disabled"></p></div></div><div class="row row-2 click-disabled"><div class="cell cell-1-0"><p class="cell-text click-disabled"></p></div><div class="cell cell-1-1"><p class="cell-text click-disabled"></p></div><div class="cell cell-1-2"><p class="cell-text click-disabled"></p></div></div><div class="row row-3 click-disabled"><div class="cell cell-2-0"><p class="cell-text click-disabled"></p></div><div class="cell cell-2-1"><p class="cell-text click-disabled"></p></div><div class="cell cell-2-2"><p class="cell-text click-disabled"></p></div></div></div></article>';
-
-  //Selectors
-  var $formContainer = $('.form-container');
-  var $rowsContainer = $('.rows-container');
-  var $bodyContainer = $('.body-container');
-  var $boardContainer = $('.board-container');
-  $row = $('.row');
-  $cell = $('.cell');
-  $message = $('.message');
-  $modal = $('.modal');
-  $gameOver = $('.game-over');
-  $btnContainer = $('.btn-container');
-  $refreshBtn = $('.new-game-btn');
-  $winningText = $('.winning-text');
-  $startBtn = $('.start-btn');
-
   $startBtn.on('click', e => {
     e.preventDefault();
     //Do something if inputVal is computer or human
     $($boardContainer).css('z-index', '0');
     $($bodyContainer).css('z-index', '-10');
 
-    //Delete form that user first sees
-    // $bodyContainer.empty();
-
-    //Use JS to create the tic tac toe board I had before
-    // $bodyContainer.append($board);
-  });
-
-  // $input.on('click', e => {
-  //   var $val = $(e.target).val();
-  //   console.log($val);
-  // });
-
-  //Event Handler to listen for input's value to change
-  $formContainer.change(e => {
-    $inputVal = $(e.target).val();
-    console.log('inputVal:', $inputVal);
+    whoIsPlaying();
   });
 
   // Keep track of score in arr sep from DOM/HTML
@@ -199,13 +213,197 @@ $(document).ready(function() {
     window.location.reload();
   });
 
-  //This code is not even triggering when creating board in JS
+  //HUMAN VS HUMAN MODE
+  //Disable clicking on rows
+  // $rowsContainer.on('click', $cell, e => {
+  //   moves++;
+  //   var clickedCell = $(e.target)[0].className;
+  //   //Converts a cell className into an arr to get coordinates
+  //   var classNameArr = clickedCell.split('-').splice('');
+
+  //   //Should return an arr w/ 2 values e.g [i, j] => [0,1]
+  //   //i = outer arr idx; j =; inner arr idx
+  //   var numArr = classNameArr
+  //     .filter(x => !x.includes('cell'))
+  //     .map(x => parseInt(x));
+  //   // console.log('clickedCell: ', clickedCell);
+  //   // console.log('numArr: ', numArr);
+  //   var coordOne = numArr[0];
+  //   var coordTwo = numArr[1];
+
+  //   //Disable clicking after user clicks on a square
+  //   $(e.target).addClass('click-disabled');
+
+  //   $('.click-disabled').on('click', e => {
+  //     var clickedOn = e.target.className.split(' ');
+  //     if (clickedOn.includes('click-disabled')) {
+  //       e.stopPropagation();
+  //       e.preventDefault();
+  //     }
+  //   });
+
+  //   //Need to prevent clicking on children too
+  //   // console.log(e.target);
+
+  //   if (turn === 'X') {
+  //     var clickedCellText = $(e.target);
+  //     clickedCellText
+  //       .children()
+  //       .eq(0)
+  //       .text('X');
+
+  //     clickedCellText
+  //       .children()
+  //       .eq(0)
+  //       .addClass('playerOne');
+
+  //     boardArr[coordOne][coordTwo] = 'X';
+
+  //     //Check score to see if someone won
+  //     checkForWin(boardArr);
+
+  //     if (winner) {
+  //       $('article').addClass('click-disabled');
+  //       $($modal).css('z-index', '1');
+  //       $gameOver.after(
+  //         '<h2 class="winning-text playerOne">Winner: Player 1</h2>'
+  //       );
+  //       $($gameOver).css('z-index', '4');
+  //       $($btnContainer).css('z-index', '3');
+  //     }
+
+  //     //Change message so player knows when to go
+  //     $message.text("Player Two's Turn");
+  //     $message.removeClass('one-turn');
+  //     $message.addClass('two-turn');
+
+  //     turn = 'O';
+  //   } else if (turn === 'O') {
+  //     var clickedCellText = $(e.target);
+  //     clickedCellText
+  //       .children()
+  //       .eq(0)
+  //       .text('O');
+
+  //     clickedCellText
+  //       .children()
+  //       .eq(0)
+  //       .addClass('playerTwo');
+
+  //     boardArr[coordOne][coordTwo] = 'O';
+
+  //     //Check score to see if someone won
+  //     checkForWin(boardArr);
+
+  //     if (winner) {
+  //       // console.log('winner: ', winner);
+  //       //Disables click if someone wins
+  //       $('article').addClass('click-disabled');
+  //       $($modal).css('z-index', '1');
+  //       $gameOver.after(
+  //         '<h2 class="winning-text playerTwo">Winner: Player 2</h2>'
+  //       );
+  //       $($gameOver).css('z-index', '4');
+  //       $($btnContainer).css('z-index', '3');
+  //     }
+
+  //     //Change msg so player knows when to go
+  //     $message.text("Player One's Turn");
+  //     $message.removeClass('two-turn');
+  //     $message.addClass('one-turn');
+  //     turn = 'X';
+  //   }
+
+  //   console.log(boardArr);
+  //   //Need to figure out a way to loop
+  //   // No Winner
+  //   if (moves === 9 && !winner) {
+  //     $($modal).css('z-index', '1');
+  //     $($gameOver).text('DRAW');
+  //     $($gameOver).css('z-index', '4');
+  //     $($btnContainer).css('z-index', '3');
+  //   }
+  // });
+
+  //Creates random idx for computer
+  const createRandomIdx = () => {
+    randOne = Math.floor(Math.random() * 3);
+    randTwo = Math.floor(Math.random() * 3);
+  };
+
+  //COMPUTER VS HUMAN
+  const addToBoard = () => {
+    //Alternate btwn Xs and Os
+    while (moves < 9) {
+      createRandomIdx();
+      // Check if square is empty
+      if (boardArr[randOne][randTwo] === null) {
+        if (turn === 'X') {
+          //Allow user to click
+          //Computer does nothing here
+
+          var cellToEdit = $(`.cell-${randOne}-${randTwo}`);
+
+          cellToEdit
+            .children()
+            .eq(0)
+            .text('X');
+
+          cellToEdit
+            .children()
+            .eq(0)
+            .addClass('playerOne');
+
+          boardArr[randOne][randTwo] = 'X';
+          turn = 'O';
+        } else if (turn === 'O') {
+          //computer makes a move
+          boardArr[randOne][randTwo] = 'O';
+
+          //Adds an O to square that was clicked
+          //Find square with same coordinates & add
+
+          //Use jQuery to find any cells that include coords in className
+          //
+          var cellToEdit = $(`.cell-${randOne}-${randTwo}`);
+
+          cellToEdit
+            .children()
+            .eq(0)
+            .text('O');
+
+          cellToEdit
+            .children()
+            .eq(0)
+            .addClass('playerTwo');
+
+          boardArr[randOne][randTwo] = 'O';
+
+          // console.log(cellToEdit);
+          //Check score to see if someone won
+          checkForWin(boardArr);
+
+          turn = 'X';
+        }
+        moves++;
+      }
+      //If square is not empty, create a randomIdx
+      else {
+        createRandomIdx();
+      }
+    }
+  };
+
+  // addToBoard();
+
   $rowsContainer.on('click', $cell, e => {
-    moves++;
+    addToBoard();
+
+    // moves++;
     var clickedCell = $(e.target)[0].className;
+
     //Converts a cell className into an arr to get coordinates
     var classNameArr = clickedCell.split('-').splice('');
-
     //Should return an arr w/ 2 values e.g [i, j] => [0,1]
     //i = outer arr idx; j =; inner arr idx
     var numArr = classNameArr
@@ -217,7 +415,6 @@ $(document).ready(function() {
     var coordTwo = numArr[1];
 
     //Disable clicking after user clicks on a square
-
     $(e.target).addClass('click-disabled');
 
     $('.click-disabled').on('click', e => {
@@ -227,9 +424,6 @@ $(document).ready(function() {
         e.preventDefault();
       }
     });
-
-    //Need to prevent clicking on children too
-    // console.log(e.target);
 
     if (turn === 'X') {
       var clickedCellText = $(e.target);
@@ -265,21 +459,21 @@ $(document).ready(function() {
 
       turn = 'O';
     } else if (turn === 'O') {
-      var clickedCellText = $(e.target);
-      clickedCellText
-        .children()
-        .eq(0)
-        .text('O');
+      // var clickedCellText = $(e.target);
+      // clickedCellText
+      //   .children()
+      //   .eq(0)
+      //   .text('O');
 
-      clickedCellText
-        .children()
-        .eq(0)
-        .addClass('playerTwo');
+      // clickedCellText
+      //   .children()
+      //   .eq(0)
+      //   .addClass('playerTwo');
 
-      boardArr[coordOne][coordTwo] = 'O';
+      // boardArr[coordOne][coordTwo] = 'O';
 
-      //Check score to see if someone won
-      checkForWin(boardArr);
+      // //Check score to see if someone won
+      // checkForWin(boardArr);
 
       if (winner) {
         // console.log('winner: ', winner);
@@ -300,7 +494,7 @@ $(document).ready(function() {
       turn = 'X';
     }
 
-    // console.log(boardArr);
+    console.log(boardArr);
     //Need to figure out a way to loop
     // No Winner
     if (moves === 9 && !winner) {
