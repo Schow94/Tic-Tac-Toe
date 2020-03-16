@@ -262,14 +262,10 @@ $(document).ready(function() {
   //       }
   //       moves++;
   //     }
-  //     //If square is not empty, create a randomIdx
-  //     // else {
-  //     //   createRandomIdx();
-  //     // }
   //   }
   // };
 
-  const addToBoard = () => {
+  const computerMove = () => {
     if (moves === 1 || moves === 3 || moves === 5 || moves === 7) {
       createRandomIdx();
       console.log(randOne, randTwo, boardArr[randOne][randTwo]);
@@ -286,12 +282,27 @@ $(document).ready(function() {
           .children()
           .eq(0)
           .addClass('playerTwo');
+        checkForWin(boardArr);
+
+        if (winner === 'playerTwo') {
+          //Code
+          console.log('winner: ', winner);
+          //Disables click if someone wins
+          $('article').addClass('click-disabled');
+          $($modal).css('z-index', '1');
+          $gameOver.after(
+            `<h2 class="winning-text playerTwo">Winner: ${winner}</h2>`
+          );
+          $($gameOver).css('z-index', '4');
+          $($btnContainer).css('z-index', '3');
+        }
+
         moves++;
       }
       //If square is filled already create randIdx again
       else {
         createRandomIdx();
-        addToBoard();
+        computerMove();
       }
     }
   };
@@ -310,13 +321,8 @@ $(document).ready(function() {
     //Human Players input
     var clickedCellText = $(e.target);
 
-    if (
-      moves === 0 ||
-      moves === 2 ||
-      moves === 4 ||
-      moves === 6 ||
-      moves === 8
-    ) {
+    if (moves === 0 || moves === 2 || moves === 4 || moves === 6) {
+      console.log('moves: ', moves);
       clickedCellText
         .children()
         .eq(0)
@@ -328,8 +334,31 @@ $(document).ready(function() {
         .addClass('playerOne');
 
       boardArr[coordOne][coordTwo] = 'X';
+      checkForWin(boardArr);
+
+      //Can turn this into it's own fxn at some point
+      if (winner === 'playerOne') {
+        //Code
+        console.log('winner: ', winner);
+        //Disables click if someone wins
+        $('article').addClass('click-disabled');
+        $($modal).css('z-index', '1');
+        $gameOver.after(
+          `<h2 class="winning-text playerOne">Winner: ${winner}</h2>`
+        );
+        $($gameOver).css('z-index', '4');
+        $($btnContainer).css('z-index', '3');
+      }
+
       moves++;
-      addToBoard();
+      computerMove();
+    }
+    //This code is not
+    else if (moves === 8 && !winner) {
+      $($modal).css('z-index', '1');
+      $($gameOver).text('DRAW');
+      $($gameOver).css('z-index', '4');
+      $($btnContainer).css('z-index', '3');
     }
     console.log(boardArr);
   });
