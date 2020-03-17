@@ -209,115 +209,115 @@ $(document).ready(function() {
 
   //HUMAN VS HUMAN MODE
   //Disable clicking on rows
-  // $rowsContainer.on('click', $cell, e => {
-  //   moves++;
-  //   var clickedCell = $(e.target)[0].className;
-  //   //Converts a cell className into an arr to get coordinates
-  //   var classNameArr = clickedCell.split('-').splice('');
+  $rowsContainer.on('click', $cell, e => {
+    moves++;
+    var clickedCell = $(e.target)[0].className;
+    //Converts a cell className into an arr to get coordinates
+    var classNameArr = clickedCell.split('-').splice('');
 
-  //   //Should return an arr w/ 2 values e.g [i, j] => [0,1]
-  //   //i = outer arr idx; j =; inner arr idx
-  //   var numArr = classNameArr
-  //     .filter(x => !x.includes('cell'))
-  //     .map(x => parseInt(x));
-  //   // console.log('clickedCell: ', clickedCell);
-  //   // console.log('numArr: ', numArr);
-  //   var coordOne = numArr[0];
-  //   var coordTwo = numArr[1];
+    //Should return an arr w/ 2 values e.g [i, j] => [0,1]
+    //i = outer arr idx; j =; inner arr idx
+    var numArr = classNameArr
+      .filter(x => !x.includes('cell'))
+      .map(x => parseInt(x));
+    // console.log('clickedCell: ', clickedCell);
+    // console.log('numArr: ', numArr);
+    var coordOne = numArr[0];
+    var coordTwo = numArr[1];
 
-  //   //Disable clicking after user clicks on a square
-  // $(e.target).addClass('click-disabled');
+    //Disable clicking after user clicks on a square
+    $(e.target).addClass('click-disabled');
 
-  // $('.click-disabled').on('click', e => {
-  //   var clickedOn = e.target.className.split(' ');
-  //   if (clickedOn.includes('click-disabled')) {
-  //     e.stopPropagation();
-  //     e.preventDefault();
-  //   }
-  // });
+    $('.click-disabled').on('click', e => {
+      var clickedOn = e.target.className.split(' ');
+      if (clickedOn.includes('click-disabled')) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+    });
 
-  //   //Need to prevent clicking on children too
-  //   // console.log(e.target);
+    //Need to prevent clicking on children too
+    // console.log(e.target);
 
-  //   if (turn === 'X') {
-  //     var clickedCellText = $(e.target);
-  //     clickedCellText
-  //       .children()
-  //       .eq(0)
-  //       .text('X');
+    if (turn === 'X') {
+      var clickedCellText = $(e.target);
+      clickedCellText
+        .children()
+        .eq(0)
+        .text('X');
 
-  //     clickedCellText
-  //       .children()
-  //       .eq(0)
-  //       .addClass('playerOne');
+      clickedCellText
+        .children()
+        .eq(0)
+        .addClass('playerOne');
 
-  //     boardArr[coordOne][coordTwo] = 'X';
+      boardArr[coordOne][coordTwo] = 'X';
 
-  //     //Check score to see if someone won
-  //     checkForWin(boardArr);
+      //Check score to see if someone won
+      checkForWin(boardArr);
 
-  //     if (winner) {
-  //       $('article').addClass('click-disabled');
-  //       $($modal).css('z-index', '1');
-  //       $gameOver.after(
-  //         '<h2 class="winning-text playerOne">Winner: Player 1</h2>'
-  //       );
-  //       $($gameOver).css('z-index', '4');
-  //       $($btnContainer).css('z-index', '3');
-  //     }
+      if (winner) {
+        $('article').addClass('click-disabled');
+        $($modal).css('z-index', '1');
+        $gameOver.after(
+          '<h2 class="winning-text playerOne">Winner: Player 1</h2>'
+        );
+        $($gameOver).css('z-index', '4');
+        $($btnContainer).css('z-index', '3');
+      }
 
-  //     //Change message so player knows when to go
-  //     $message.text("Player Two's Turn");
-  //     $message.removeClass('one-turn');
-  //     $message.addClass('two-turn');
+      //Change message so player knows when to go
+      $message.text("Player Two's Turn");
+      $message.removeClass('one-turn');
+      $message.addClass('two-turn');
 
-  //     turn = 'O';
-  //   } else if (turn === 'O') {
-  //     var clickedCellText = $(e.target);
-  //     clickedCellText
-  //       .children()
-  //       .eq(0)
-  //       .text('O');
+      turn = 'O';
+    } else if (turn === 'O') {
+      var clickedCellText = $(e.target);
+      clickedCellText
+        .children()
+        .eq(0)
+        .text('O');
 
-  //     clickedCellText
-  //       .children()
-  //       .eq(0)
-  //       .addClass('playerTwo');
+      clickedCellText
+        .children()
+        .eq(0)
+        .addClass('playerTwo');
 
-  //     boardArr[coordOne][coordTwo] = 'O';
+      boardArr[coordOne][coordTwo] = 'O';
 
-  //     //Check score to see if someone won
-  //     checkForWin(boardArr);
+      //Check score to see if someone won
+      checkForWin(boardArr);
 
-  //     if (winner) {
-  //       // console.log('winner: ', winner);
-  //       //Disables click if someone wins
-  //       $('article').addClass('click-disabled');
-  //       $($modal).css('z-index', '1');
-  //       $gameOver.after(
-  //         '<h2 class="winning-text playerTwo">Winner: Player 2</h2>'
-  //       );
-  //       $($gameOver).css('z-index', '4');
-  //       $($btnContainer).css('z-index', '3');
-  //     }
+      if (winner) {
+        // console.log('winner: ', winner);
+        //Disables click if someone wins
+        $('article').addClass('click-disabled');
+        $($modal).css('z-index', '1');
+        $gameOver.after(
+          '<h2 class="winning-text playerTwo">Winner: Player 2</h2>'
+        );
+        $($gameOver).css('z-index', '4');
+        $($btnContainer).css('z-index', '3');
+      }
 
-  //     //Change msg so player knows when to go
-  //     $message.text("Player One's Turn");
-  //     $message.removeClass('two-turn');
-  //     $message.addClass('one-turn');
-  //     turn = 'X';
-  //   }
+      //Change msg so player knows when to go
+      $message.text("Player One's Turn");
+      $message.removeClass('two-turn');
+      $message.addClass('one-turn');
+      turn = 'X';
+    }
 
-  //   console.log(boardArr);
-  //   //Need to figure out a way to loop
-  //   // No Winner
-  //   if (moves === 9 && !winner) {
-  //     $($modal).css('z-index', '1');
-  //     $($gameOver).text('DRAW');
-  //     $($gameOver).css('z-index', '4');
-  //     $($btnContainer).css('z-index', '3');
-  //   }
-  // });
+    console.log(boardArr);
+    //Need to figure out a way to loop
+    // No Winner
+    if (moves === 9 && !winner) {
+      $($modal).css('z-index', '1');
+      $($gameOver).text('DRAW');
+      $($gameOver).css('z-index', '4');
+      $($btnContainer).css('z-index', '3');
+    }
+  });
 
   //Creates random idx for computer
   const createRandomIdx = () => {
