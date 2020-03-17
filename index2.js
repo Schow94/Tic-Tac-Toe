@@ -342,6 +342,18 @@ $(document).ready(function() {
             .children()
             .eq(0)
             .addClass('playerTwo');
+          cellToEdit.addClass('click-disabled');
+
+          //Trying to disable clicking on squares that computer places an O in
+          $('.click-disabled').on('click', e => {
+            var clickedOn = e.target.className.split(' ');
+            if (clickedOn.includes('click-disabled')) {
+              e.stopPropagation();
+              e.preventDefault();
+              console.log('Sorry, you computer already clicked here');
+            }
+          });
+
           checkForWin(boardArr);
 
           if (winner === 'playerTwo') {
@@ -387,13 +399,13 @@ $(document).ready(function() {
 
       $(e.target).addClass('click-disabled');
 
-      // $('.click-disabled').on('click', e => {
-      //   var clickedOn = e.target.className.split(' ');
-      //   if (clickedOn.includes('click-disabled')) {
-      //     e.stopPropagation();
-      //     e.preventDefault();
-      //   }
-      // });
+      $('.click-disabled').on('click', e => {
+        var clickedOn = e.target.className.split(' ');
+        if (clickedOn.includes('click-disabled')) {
+          e.stopPropagation();
+          e.preventDefault();
+        }
+      });
 
       if (moves === 0 || moves === 2 || moves === 4 || moves === 6) {
         console.log('moves: ', moves);
