@@ -369,17 +369,42 @@ $(document).ready(function() {
       $message.addClass('two-turn');
 
       moves++;
-      // var timer = setTimeout(() => {
       computerMove();
-      // }, 500);
+    } else if (moves === 8) {
+      clickedCellText
+        .children()
+        .eq(0)
+        .text('X');
+
+      clickedCellText
+        .children()
+        .eq(0)
+        .addClass('playerOne');
+
+      boardArr[coordOne][coordTwo] = 'X';
+      checkForWin(boardArr);
+
+      //Can turn this into it's own fxn at some point
+      if (winner === 'playerOne') {
+        //Code
+        console.log('winner: ', winner);
+        //Disables click if someone wins
+        $('article').addClass('click-disabled');
+        $($modal).css('z-index', '1');
+        $gameOver.after(
+          `<h2 class="winning-text playerOne">Winner: ${winner}</h2>`
+        );
+        $($gameOver).css('z-index', '4');
+        $($btnContainer).css('z-index', '3');
+      } else if (!winner) {
+        console.log('winner:', winner);
+        $($modal).css('z-index', '1');
+        $($gameOver).text('DRAW');
+        $($gameOver).css('z-index', '4');
+        $($btnContainer).css('z-index', '3');
+      }
     }
-    //This code is not
-    else if (moves === 8 && !winner) {
-      $($modal).css('z-index', '1');
-      $($gameOver).text('DRAW');
-      $($gameOver).css('z-index', '4');
-      $($btnContainer).css('z-index', '3');
-    }
+
     console.log(boardArr);
   });
 });
