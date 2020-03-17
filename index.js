@@ -226,15 +226,15 @@ $(document).ready(function() {
   //   var coordTwo = numArr[1];
 
   //   //Disable clicking after user clicks on a square
-  //   $(e.target).addClass('click-disabled');
+  // $(e.target).addClass('click-disabled');
 
-  //   $('.click-disabled').on('click', e => {
-  //     var clickedOn = e.target.className.split(' ');
-  //     if (clickedOn.includes('click-disabled')) {
-  //       e.stopPropagation();
-  //       e.preventDefault();
-  //     }
-  //   });
+  // $('.click-disabled').on('click', e => {
+  //   var clickedOn = e.target.className.split(' ');
+  //   if (clickedOn.includes('click-disabled')) {
+  //     e.stopPropagation();
+  //     e.preventDefault();
+  //   }
+  // });
 
   //   //Need to prevent clicking on children too
   //   // console.log(e.target);

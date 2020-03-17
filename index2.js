@@ -214,56 +214,56 @@ $(document).ready(function() {
   };
 
   //COMPUTER VS HUMAN - Not using right now
-  // const addToBoard = () => {
-  //   //Alternate btwn Xs and Os
-  //   while (moves < 9) {
-  //     console.log('turn: ', turn);
-  //     // createRandomIdx();
-  //     console.log(randOne, randTwo);
-  //     // Check if square is empty
-  //     if (boardArr[randOne][randTwo] === null) {
-  //       if (turn === 'X') {
-  //         //I think I should put even handler logic here
-  //         turn = 'O';
-  //       }
-  //       // Computer needs to wait until user has made their turn
-  //       else if (turn === 'O') {
-  //         var cellToEdit = $(`.cell-${randOne}-${randTwo}`);
-  //         cellToEdit
-  //           .children()
-  //           .eq(0)
-  //           .text('O');
-  //         cellToEdit
-  //           .children()
-  //           .eq(0)
-  //           .addClass('playerTwo');
-  //         boardArr[randOne][randTwo] = 'O';
-  //         //Check score to see if someone won
-  //         checkForWin(boardArr);
-  //         turn = 'X';
-  //         //Code below is only firing once for some reason
-  //         if (winner) {
-  //           //Code
-  //           console.log('winner: ', winner);
-  //           //Disables click if someone wins
-  //           $('article').addClass('click-disabled');
-  //           $($modal).css('z-index', '1');
-  //           $gameOver.after(
-  //             '<h2 class="winning-text playerTwo">Winner: Player 2</h2>'
-  //           );
-  //           $($gameOver).css('z-index', '4');
-  //           $($btnContainer).css('z-index', '3');
-  //         }
-  //         //Change msg so player knows when to go
-  //         $message.text("Player One's Turn");
-  //         $message.removeClass('two-turn');
-  //         $message.addClass('one-turn');
-  //         break;
-  //       }
-  //       moves++;
-  //     }
-  //   }
-  // };
+  const addToBoard = () => {
+    //Alternate btwn Xs and Os
+    while (moves < 9) {
+      console.log('turn: ', turn);
+      // createRandomIdx();
+      console.log(randOne, randTwo);
+      // Check if square is empty
+      if (boardArr[randOne][randTwo] === null) {
+        if (turn === 'X') {
+          //I think I should put even handler logic here
+          turn = 'O';
+        }
+        // Computer needs to wait until user has made their turn
+        else if (turn === 'O') {
+          var cellToEdit = $(`.cell-${randOne}-${randTwo}`);
+          cellToEdit
+            .children()
+            .eq(0)
+            .text('O');
+          cellToEdit
+            .children()
+            .eq(0)
+            .addClass('playerTwo');
+          boardArr[randOne][randTwo] = 'O';
+          //Check score to see if someone won
+          checkForWin(boardArr);
+          turn = 'X';
+          //Code below is only firing once for some reason
+          if (winner) {
+            //Code
+            console.log('winner: ', winner);
+            //Disables click if someone wins
+            $('article').addClass('click-disabled');
+            $($modal).css('z-index', '1');
+            $gameOver.after(
+              '<h2 class="winning-text playerTwo">Winner: Player 2</h2>'
+            );
+            $($gameOver).css('z-index', '4');
+            $($btnContainer).css('z-index', '3');
+          }
+          //Change msg so player knows when to go
+          $message.text("Player One's Turn");
+          $message.removeClass('two-turn');
+          $message.addClass('one-turn');
+          break;
+        }
+        moves++;
+      }
+    }
+  };
 
   const computerMove = () => {
     if (moves === 1 || moves === 3 || moves === 5 || moves === 7) {
@@ -297,6 +297,10 @@ $(document).ready(function() {
           $($btnContainer).css('z-index', '3');
         }
 
+        $message.text('Turn: Player 1');
+        $message.removeClass('two-turn');
+        $message.addClass('one-turn');
+
         moves++;
       }
       //If square is filled already create randIdx again
@@ -320,6 +324,16 @@ $(document).ready(function() {
 
     //Human Players input
     var clickedCellText = $(e.target);
+
+    $(e.target).addClass('click-disabled');
+
+    // $('.click-disabled').on('click', e => {
+    //   var clickedOn = e.target.className.split(' ');
+    //   if (clickedOn.includes('click-disabled')) {
+    //     e.stopPropagation();
+    //     e.preventDefault();
+    //   }
+    // });
 
     if (moves === 0 || moves === 2 || moves === 4 || moves === 6) {
       console.log('moves: ', moves);
@@ -350,8 +364,14 @@ $(document).ready(function() {
         $($btnContainer).css('z-index', '3');
       }
 
+      $message.text('Turn: Player 2');
+      $message.removeClass('one-turn');
+      $message.addClass('two-turn');
+
       moves++;
+      // var timer = setTimeout(() => {
       computerMove();
+      // }, 500);
     }
     //This code is not
     else if (moves === 8 && !winner) {
